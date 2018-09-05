@@ -1,0 +1,39 @@
+{
+  "manifest_version": 2,
+  "name": "AtCoder_Bookmark",
+  "version": "0.0.1",
+  "description": "AtCoderのリンクを保存します。",
+  "author": "ganariya",
+  "browser_action": {
+    "default_icon": {
+      "19": "images/small_icon.png",
+      "38": "images/large_icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "scripts/third/jquery-3.3.1.min.js",
+        "scripts/atcoder.bundle.js"
+      ],
+      "matches": [
+        "https://beta.atcoder.jp/contests/*/tasks",
+        "https://*.contest.atcoder.jp/assignments"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "styles/checkboxes.css"
+  ],
+  "background": {
+    "scripts": [
+      "scripts/background.bundle.js"
+    ],
+    "persistent": false
+  },
+  "permissions": [
+    "http://beta.atcoder.jp/",
+    "storage",
+    "unlimitedStorage"
+  ]
+}
