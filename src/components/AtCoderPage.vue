@@ -1,7 +1,33 @@
 <template>
     <div>
         <my-header></my-header>
-        <button class="button is-primary" @click="showAtCoder">AtCoderの証</button>
+        <section class="hero is-info">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        AtCoder
+                    </h1>
+                    <h2 class="subtitle">
+                        To Save
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <main class="columns">
+            <div class="column">
+                <article class="box media">
+                    <div class="media-content">
+                        <div v-for="(contest, key) in atObByContest" v-bind:key="contest[0].contestName">
+                            <div class="box">
+                                <div class="title">{{key}}</div>
+                                <contest-component v-bind:contest="contest"></contest-component>
+                            </div>
+
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </main>
         <my-footer></my-footer>
     </div>
 </template>
@@ -9,26 +35,38 @@
 <script>
     import MyHeader from './MyHeader.vue';
     import MyFooter from './MyFooter.vue';
+    import ContestComponent from './AtCoder/ContestComponent.vue';
 
     export default {
         components: {
             "MyHeader": MyHeader,
-            "MyFooter": MyFooter
+            "MyFooter": MyFooter,
+            "ContestComponent": ContestComponent
         },
         data() {
             return {
-                atcoderObjects: null
+                atObject: null,
+                atObByContest: null
             }
         },
-        methods: {
-            showAtCoder(){
-                console.log(this.atcoderObjects);
-            }
-        },
+        methods: {},
         beforeCreate: function () {
             var _this = this;
             chrome.storage.local.get((items) => {
-                _this.atcoderObjects = items['atcoder'];
+                _this.atObject = items['atcoder'];
+                _this.atObByContest = {};
+                for (let i in _this.atObject) {
+                    let contestName = _this.atObject[i].contestName.toUpperCase();
+                    if (_this.atObByContest[contestName]) {
+                        _this.atObByContest[contestName].push(_this.atObject[i]);
+                    } else {
+                        _this.atObByContest[contestName] = [];
+                        _this.atObByContest[contestName].push(_this.atObject[i]);
+                    }
+                }
+                let obj = {};
+                Object.keys(_this.atObByContest).sort().forEach(key => obj[key] = _this.atObByContest[key]);
+                _this.atObByContest = obj;
             })
         },
         name: "HomePage",
@@ -37,5 +75,7 @@
 </script>
 
 <style scoped>
-
+    .box {
+        margin-bottom: 1rem;
+    }
 </style>
