@@ -8,13 +8,13 @@
                         AtCoder
                     </h1>
                     <h2 class="subtitle">
-                        To Save
+                        To Save your error and lead to success.
                     </h2>
                 </div>
             </div>
         </section>
-        <main class="columns">
-            <div class="column">
+        <main class="columns is-centered" style="margin-top: 20px;">
+            <div class="column is-three-quarters">
                 <article class="box media">
                     <div class="media-content">
                         <div v-for="(contest, key) in atObByContest" v-bind:key="contest[0].contestName">
@@ -22,7 +22,6 @@
                                 <div class="title">{{key}}</div>
                                 <contest-component v-bind:contest="contest"></contest-component>
                             </div>
-
                         </div>
                     </div>
                 </article>
@@ -53,6 +52,7 @@
         beforeCreate: function () {
             var _this = this;
             chrome.storage.local.get((items) => {
+                console.log(items);
                 _this.atObject = items['atcoder'];
                 _this.atObByContest = {};
                 for (let i in _this.atObject) {

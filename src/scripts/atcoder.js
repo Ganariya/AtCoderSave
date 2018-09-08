@@ -34,7 +34,7 @@ function getTitle(elem) {
 }
 
 function getDate() {
-    return moment();
+    return Date.now();
 }
 
 function getProblemURL(elem) {
@@ -128,6 +128,10 @@ $(function () {
     let contestName = getContestName(isBeta, url);
 
     chrome.storage.local.get((items) => {
+        if (!items['atcoder']) {
+            items['atcoder'] = [];
+            chrome.storage.local.set(items);
+        }
         let atCoderObjects = makeAtCoderObjects(url, contestName);
         drawTable(url, contestName, atCoderObjects, items);
     });

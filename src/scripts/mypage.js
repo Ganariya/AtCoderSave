@@ -7,6 +7,9 @@ import routes from './routes.js';
 Vue.use(Buefy);
 Vue.use(VueRouter);
 
+window.$ = require('./../scripts/third/jquery-3.3.1.min');
+window.moment = require('moment');
+
 const router = new VueRouter({
     routes: routes
 });
