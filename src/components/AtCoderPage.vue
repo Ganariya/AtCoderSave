@@ -6,7 +6,7 @@
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        AtCoder(beta)
+                        AtCoder(beta only)
                     </h1>
                     <h2 class="subtitle">
                         <p>To Save your error and lead to success.</p>
@@ -54,10 +54,12 @@
                 <article class="box media">
                     <div class="media-content">
                         <!--/ コンテストごと -->
-                        <div v-for="(contest, key) in filteredContests" v-bind:key="contest[0] ?contest[0].contestName : key" v-if="contest[0]">
-                            <div class="box" >
+                        <div v-for="(contest, key) in filteredContests"
+                             v-bind:key="contest[0] ?contest[0].contestName : key" v-if="contest[0]">
+                            <div class="box">
                                 <div class="title">{{key}}</div>
-                                <contest-component v-bind:contest="contest"></contest-component>
+                                <contest-component v-bind:contest="contest"
+                                                   v-on:deleteOriginalProblem="deleteOriginalProblem"></contest-component>
                             </div>
                         </div>
                         <!-- コンテストごと /-->
@@ -93,7 +95,17 @@
                 searchContestLevel: 'Level'
             }
         },
-        methods: {},
+        methods: {
+            deleteOriginalProblem(problemId) {
+                let newAtObByContest = {};
+                for (let key in this.atObByContest) {
+                    let contests = [];
+                    for (let contest of this.atObByContest[key]) if (contest.id != problemId) contests.push(contest);
+                    newAtObByContest[key] = contests;
+                }
+                this.atObByContest = newAtObByContest;
+            }
+        },
         computed: {
             filteredContests() {
 
@@ -117,8 +129,6 @@
                         }
                     }
                 }
-
-                console.log(contests);
 
                 /*名前での探索*/
                 let contests2 = {};

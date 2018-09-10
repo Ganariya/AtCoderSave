@@ -70,7 +70,7 @@
                 this.modalshow = !this.modalshow;
             },
             deleteProblem() {
-                this.$emit('deleteProblem', this.index, this.problem.id);
+                this.$emit('deleteSyncProblem', this.index, this.problem.id);
             }
         },
         beforeCreate: function () {

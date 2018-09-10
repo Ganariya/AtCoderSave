@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "AtCoder_Bookmark",
+  "name": "AtCoderBook",
   "version": "0.0.1",
-  "description": "AtCoderのリンクを保存します。",
+  "description": "AtCoderのブックマーク",
   "author": "ganariya",
   "browser_action": {
     "default_icon": {
