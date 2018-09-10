@@ -11,7 +11,7 @@
                     <router-link to="/" tag="a" class="navbar-item">Home</router-link>
                     <router-link to="/AtCoder" tag="a" class="navbar-item">AtCoder</router-link>
                     <router-link to="/Codeforces" tag="a" class="navbar-item">Codeforces</router-link>
-                    <router-link to="/CSAcademy" tag="a" class="navbar-item">CSAcademy</router-link>
+                    <router-link to="/CSA" tag="a" class="navbar-item">CSAcademy</router-link>
                     <router-link to="/AOJ" tag="a" class="navbar-item">AOJ</router-link>
                 </div>
             </div>

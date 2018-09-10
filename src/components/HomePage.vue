@@ -1,7 +1,25 @@
 <template>
     <div>
+        <!--/ Header -->
         <my-header></my-header>
+        <section class="hero is-info">
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        Home
+                    </h1>
+                    <h2 class="subtitle">
+                        <p>現在改築中...</p>
+                    </h2>
+                </div>
+            </div>
+        </section>
+        <!-- Header /-->
+
+        <!--/ Footer -->
         <my-footer></my-footer>
+        <!-- Footer /-->
+
     </div>
 </template>
 

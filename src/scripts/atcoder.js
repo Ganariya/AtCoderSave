@@ -40,6 +40,7 @@ function getDate() {
 function getProblemURL(elem) {
     var atcoderURL = "https://beta.atcoder.jp";
     var problemURL = atcoderURL + $(elem).find("a").eq(0).attr('href');
+    console.log($(elem).find("a").eq(0).attr('href'));
     return problemURL;
 }
 
