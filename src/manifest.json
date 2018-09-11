@@ -20,6 +20,15 @@
         "https://beta.atcoder.jp/contests/*/tasks",
         "https://*.contest.atcoder.jp/assignments"
       ]
+    },
+    {
+      "js": [
+        "scripts/third/jquery-3.3.1.min.js",
+        "scripts/atcoderEach.bundle.js"
+      ],
+      "matches":[
+        "https://beta.atcoder.jp/contests/*/tasks/*"
+      ]
     }
   ],
   "web_accessible_resources": [

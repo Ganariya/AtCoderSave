@@ -10,6 +10,7 @@ module.exports = {
         options: path.join(__dirname, 'src', 'scripts', 'options.js'),
         mypage: path.join(__dirname, 'src', 'scripts', 'mypage.js'),
         atcoder: path.join(__dirname, 'src', 'scripts', 'atcoder.js'),
+        atcoderEach: path.join(__dirname, 'src', 'scripts', 'atcoderEach.js'),
         codeforces: path.join(__dirname, 'src', 'scripts', 'codeforces.js')
     },
     output: {
