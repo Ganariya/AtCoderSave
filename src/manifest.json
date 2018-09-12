@@ -26,8 +26,17 @@
         "scripts/third/jquery-3.3.1.min.js",
         "scripts/atcoderEach.bundle.js"
       ],
-      "matches":[
+      "matches": [
         "https://beta.atcoder.jp/contests/*/tasks/*"
+      ]
+    },
+    {
+      "js": [
+        "scripts/third/jquery-3.3.1.min.js",
+        "scripts/codeforces.bundle.js"
+      ],
+      "matches": [
+        "http://codeforces.com/contest/*"
       ]
     }
   ],
