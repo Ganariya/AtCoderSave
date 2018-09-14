@@ -107,8 +107,8 @@
         },
         data() {
             return {
-                atObject: null,
-                atObByContest: null,
+                codeObject: null,
+                codeObByContest: null,
                 searchContestName: '',
                 searchContestLevel: 'Level',
                 searchContestRound: '',
@@ -118,17 +118,17 @@
         methods: {
             deleteOriginalProblem(problemId) {
                 let newCodeObByContest = {};
-                for (let key in this.atObByContest) {
+                for (let key in this.codeObByContest) {
                     let contests = [];
-                    for (let contest of this.atObByContest[key]) if (contest.id != problemId) contests.push(contest);
+                    for (let contest of this.codeObByContest[key]) if (contest.id != problemId) contests.push(contest);
                     newCodeObByContest[key] = contests;
                 }
                 this.codeObByContest = newCodeObByContest;
             },
             favoriteSet(favorite, problemId){
-                for(let key in this.atObByContest){
-                    for(let key2 in this.atObByContest[key]){
-                        if(this.atObByContest[key][key2].id == problemId) this.atObByContest[key][key2].favorite = favorite;
+                for(let key in this.codeObByContest){
+                    for(let key2 in this.codeObByContest[key]){
+                        if(this.codeObByContest[key][key2].id == problemId) this.codeObByContest[key][key2].favorite = favorite;
                     }
                 }
             }
@@ -139,16 +139,16 @@
                 /*難易度での探索*/
                 let contests = {};
                 if (this.searchContestLevel == 'Level') {
-                    contests = this.atObByContest;
+                    contests = this.codeObByContest;
                 }
                 else {
-                    for (let key in this.atObByContest) {
+                    for (let key in this.codeObByContest) {
                         let good = false;
                         let problems = [];
-                        for (let key2 in this.atObByContest[key]) {
-                            if (this.atObByContest[key][key2].level == this.searchContestLevel) {
+                        for (let key2 in this.codeObByContest[key]) {
+                            if (this.codeObByContest[key][key2].level == this.searchContestLevel) {
                                 good = true;
-                                problems.push(this.atObByContest[key][key2]);
+                                problems.push(this.codeObByContest[key][key2]);
                             }
                         }
                         if (good) {
@@ -212,20 +212,20 @@
         beforeCreate: function () {
             let _this = this;
             chrome.storage.local.get((items) => {
-                _this.atObject = items['codeforces'];
-                _this.atObByContest = {};
-                for (let i in _this.atObject) {
-                    let contestName = _this.atObject[i].contestName;
-                    if (_this.atObByContest[contestName]) {
-                        _this.atObByContest[contestName].push(_this.atObject[i]);
+                _this.codeObject = items['codeforces'];
+                _this.codeObByContest = {};
+                for (let i in _this.codeObject) {
+                    let contestName = _this.codeObject[i].contestName;
+                    if (_this.codeObByContest[contestName]) {
+                        _this.codeObByContest[contestName].push(_this.codeObject[i]);
                     } else {
-                        _this.atObByContest[contestName] = [];
-                        _this.atObByContest[contestName].push(_this.atObject[i]);
+                        _this.codeObByContest[contestName] = [];
+                        _this.codeObByContest[contestName].push(_this.codeObject[i]);
                     }
                 }
                 let obj = {};
-                Object.keys(_this.atObByContest).sort().forEach(key => obj[key] = _this.atObByContest[key]);
-                _this.atObByContest = obj;
+                Object.keys(_this.codeObByContest).sort().forEach(key => obj[key] = _this.codeObByContest[key]);
+                _this.codeObByContest = obj;
             })
         },
         name: "CodeforcesPage",

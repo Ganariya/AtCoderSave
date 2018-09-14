@@ -139,6 +139,8 @@ $(function () {
     (document.head || document.documentElement).appendChild(style);
 
     let url = location.href;
+    if (url.split("/").length >= 6) return;
+
     let contestTime = getContestTime(url);
     let contestName = getContestName();
     let contestRound = getContestRound();
