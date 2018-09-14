@@ -25,23 +25,34 @@
                         <input class="input" type="text" placeholder="Search Contest" v-model="searchContestName">
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label" style="text-align: left;">難易度</label>
-                    <div class="select">
-                        <select v-model="searchContestLevel">
-                            <option>Level</option>
-                            <option>A</option>
-                            <option>B</option>
-                            <option>C</option>
-                            <option>D</option>
-                            <option>E</option>
-                            <option>F</option>
-                            <option>G</option>
-                            <option>H</option>
-                            <option>I</option>
-                            <option>J</option>
-                            <option>K</option>
-                        </select>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label" style="text-align: left;">難易度</label>
+                            <div class="select">
+                                <select v-model="searchContestLevel">
+                                    <option>Level</option>
+                                    <option>A</option>
+                                    <option>B</option>
+                                    <option>C</option>
+                                    <option>D</option>
+                                    <option>E</option>
+                                    <option>F</option>
+                                    <option>G</option>
+                                    <option>H</option>
+                                    <option>I</option>
+                                    <option>J</option>
+                                    <option>K</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <b-checkbox type="is-warning" size="is-medium" v-model="searchFavorite">
+                                お気に入り
+                            </b-checkbox>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +70,7 @@
                             <div class="box">
                                 <div class="title">{{key}}</div>
                                 <contest-component v-bind:contest="contest"
-                                                   v-on:deleteOriginalProblem="deleteOriginalProblem"></contest-component>
+                                                   v-on:deleteOriginalProblem="deleteOriginalProblem" v-on:favoriteSet="favoriteSet"></contest-component>
                             </div>
                         </div>
                         <!-- コンテストごと /-->
@@ -92,7 +103,8 @@
                 atObject: null,
                 atObByContest: null,
                 searchContestName: '',
-                searchContestLevel: 'Level'
+                searchContestLevel: 'Level',
+                searchFavorite: false
             }
         },
         methods: {
@@ -104,6 +116,13 @@
                     newAtObByContest[key] = contests;
                 }
                 this.atObByContest = newAtObByContest;
+            },
+            favoriteSet(favorite, problemId){
+                for(let key in this.atObByContest){
+                    for(let key2 in this.atObByContest[key]){
+                        if(this.atObByContest[key][key2].id == problemId) this.atObByContest[key][key2].favorite = favorite;
+                    }
+                }
             }
         },
         computed: {
@@ -130,20 +149,45 @@
                     }
                 }
 
-                /*名前での探索*/
+                /*ラウンドでの探索*/
                 let contests2 = {};
-                if (this.searchContestName == '') return contests;
-                for (let key in contests) {
-                    var _key = key.toLowerCase();
-                    var _searchContestName = this.searchContestName.toLowerCase();
-                    if (_key.indexOf(_searchContestName) != -1) contests2[key] = contests[key];
+                contests2 = contests;
+
+                /*名前での探索*/
+                let contests3 = {};
+                if (this.searchContestName == '') contests3 = contests2;
+                else {
+                    for (let key in contests2) {
+                        let _key = key.toLowerCase();
+                        let _searchContestName = this.searchContestName.toLowerCase();
+                        if (_key.indexOf(_searchContestName) != -1) contests3[key] = contests2[key];
+                    }
                 }
 
-                return contests2;
+                /*お気に入りでの探索*/
+                let contests4 = {};
+                if (this.searchFavorite == false) contests4 = contests3;
+                else{
+                    for (let key in contests3) {
+                        let good = false;
+                        let problems = [];
+                        for (let key2 in contests3[key]) {
+                            if (contests3[key][key2].favorite) {
+                                good = true;
+                                problems.push(contests3[key][key2]);
+                            }
+                        }
+                        if (good) {
+                            contests4[key] = problems;
+                        }
+                    }
+                }
+
+                return contests4;
             }
         },
         beforeCreate: function () {
-            var _this = this;
+            let _this = this;
             chrome.storage.local.get((items) => {
                 _this.atObject = items['atcoder'];
                 _this.atObByContest = {};

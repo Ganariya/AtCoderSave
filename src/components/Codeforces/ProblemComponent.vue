@@ -2,12 +2,12 @@
     <tr>
         <td><a v-bind:href="problem.url" target="_blank">{{problem.title}}</a></td>
         <td>{{problem.level}}</td>
-        <td>{{moment(problem.date).format("YYYY/MM/DD HH:mm")}}</td>
-        <td>{{moment().diff(moment(problem.date), 'hours')+"h"}}</td>
+        <td>{{moment(problem.date).format("YYYY/MM/DD HH:mm") +" ("+ moment().diff(moment(problem.date), 'hours')+"h) "}}</td>
+        <td>{{problem.solvedPeople}}</td>
         <td>
             <!--/ ボタン -->
             <a class="button is-outlined" style="background-color: #55acee"
-               v-bind:href="'https://twitter.com/intent/tweet?text='+problem.title+'('+problem.contestName.toUpperCase()+problem.level+')やるよ！&url='+problem.url+'&hashtags=AtBookMark'"
+               v-bind:href="'https://twitter.com/intent/tweet?text='+problem.title+'('+problem.contestName.replace('#', '')+problem.level+')やるよ！&url='+problem.url+'&hashtags=AtBookMark'"
                target="_blank">
                 <span class="icon"><i class="fab fa-twitter" style="color: white;"></i></span>
             </a>
@@ -68,7 +68,7 @@
                     dataType: 'html',
                     success: function (data) {
                         data = data.replace(/<img[^>]+>/gi, '');
-                        $('#modal-content' + _this.problem.id).html($(data).find('#task-statement').html());
+                        $('#modal-content' + _this.problem.id).html($(data).find(".problem-statement").children().eq(1).html());
                     }
                 })
             },
@@ -115,17 +115,17 @@
                 this.$emit('favoriteSync', this.favorite, this.problem.id);
                 let _this = this;
                 chrome.storage.local.get((items) => {
-                    let atcoder = items['atcoder'];
-                    let newAtCoder = [];
-                    for(let problem of atcoder){
+                    let codeforces = items['codeforces'];
+                    let newCodeforces = [];
+                    for(let problem of codeforces){
                         if(problem.id != _this.problem.id){
-                            newAtCoder.push(problem);
+                            newCodeforces.push(problem);
                         }else{
                             problem.favorite = _this.favorite;
-                            newAtCoder.push(problem);
+                            newCodeforces.push(problem);
                         }
                     }
-                    items['atcoder'] = newAtCoder;
+                    items['codeforces'] = newCodeforces;
                     chrome.storage.local.set(items);
                 })
             }

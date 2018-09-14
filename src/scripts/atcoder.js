@@ -54,6 +54,7 @@ function AtCoderObject(division, times, level, title, contestName, url, date) {
     this.url = url;
     this.date = date;
     this.id = division + times + level;
+    this.favorite = false;
 }
 
 //ページのAtCoderのオブジェクトを作成する

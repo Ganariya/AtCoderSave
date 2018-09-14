@@ -57,6 +57,7 @@ function CodeforcesObject(contestTime, contestRound, contestName, problemUrl, le
     this.solvedPeople = solvedPeople;
     this.date = date;
     this.id = contestTime + level;
+    this.favorite = false;
 }
 
 function makeCodeforcesObjects(url, contestTime, contestName, contestRound) {

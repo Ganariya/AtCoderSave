@@ -7,7 +7,7 @@
                     <th>タイトル</th>
                     <th>難易度</th>
                     <th>Book</th>
-                    <th>Elapsed</th>
+                    <th>People</th>
                 </tr>
             </thead>
             <!-- ヘッダ /-->
@@ -39,10 +39,10 @@
         methods: {
             deleteSyncProblem(index, problemId) {
                 chrome.storage.local.get((items) => {
-                    let atCoder = items['atcoder'];
-                    let newAtCoder = [];
-                    for(let problem of atCoder) if(problem.id != problemId) newAtCoder.push(problem);
-                    items['atcoder'] = newAtCoder;
+                    let codeforces = items['codeforces'];
+                    let newCodeforces = [];
+                    for(let problem of codeforces) if(problem.id != problemId) newCodeforces.push(problem);
+                    items['codeforces'] = newCodeforces;
                     chrome.storage.local.set(items);
                     this.$emit('deleteOriginalProblem', problemId);
                 })
