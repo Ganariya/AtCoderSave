@@ -53,6 +53,7 @@
   "permissions": [
     "http://beta.atcoder.jp/",
     "storage",
-    "unlimitedStorage"
+    "unlimitedStorage",
+    "http://kenkoooo.com/atcoder/atcoder-api/"
   ]
 }

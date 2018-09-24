@@ -10,6 +10,7 @@ Vue.use(VueRouter);
 window.$ = require('./../scripts/third/jquery-3.3.1.min');
 window.moment = require('moment');
 window.iziToast = require('./../scripts/third/iziToast.min');
+window.axios = require('axios');
 
 const router = new VueRouter({
     routes: routes
